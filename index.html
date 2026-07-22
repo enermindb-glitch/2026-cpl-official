@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b4f2e">
+<link rel="icon" href="https://media-mba2-1.cdn.whatsapp.net/v/t61.24694-24/612473433_893886059818907_3441368477424803080_n.jpg?ccb=11-4&oh=01_Q5Aa5AHsP3vSxN-lDDqTSkCZf89LrNoaegKxBS-UX5eErYk2bg&oe=6A66E35C&_nc_sid=5e03e0&_nc_cat=103">
+<link rel="apple-touch-icon" href="https://media-mba2-1.cdn.whatsapp.net/v/t61.24694-24/612473433_893886059818907_3441368477424803080_n.jpg?ccb=11-4&oh=01_Q5Aa5AHsP3vSxN-lDDqTSkCZf89LrNoaegKxBS-UX5eErYk2bg&oe=6A66E35C&_nc_sid=5e03e0&_nc_cat=103">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CPL">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <img class="hero-logo" src="https://media-mba2-1.cdn.whatsapp.net/v/t61.24694-24/612473433_893886059818907_3441368477424803080_n.jpg?ccb=11-4&oh=01_Q5Aa5AHsP3vSxN-lDDqTSkCZf89LrNoaegKxBS-UX5eErYk2bg&oe=6A66E35C&_nc_sid=5e03e0&_nc_cat=103" alt="Chuka Premier League logo" style="max-width:120px;display:block;margin:0 auto 16px;">
+
+  <span class="eyebrow">Season 2026</span>
+  <h1>Chuka Premier League</h1>
+  <p>Fixtures, standings, player profiles, and everything else — all pulled live from the league's Google Sheet.</p>
+
+  <button id="cpl-install-btn" class="btn" type="button" hidden>
+    Install App
+  </button>
+
+  <div class="card-grid">
+    <a class="card" href="league-a.html">
+      <h3>League A</h3>
+      <p>Standings, fixtures &amp; top scorers</p>
+    </a>
+    <a class="card" href="league-b.html">
+      <h3>League B</h3>
+      <p>Standings, fixtures &amp; top scorers</p>
+    </a>
+    <a class="card" href="players.html">
+      <h3>Players Directory</h3>
+      <p>Search every registered player</p>
+    </a>
+    <a class="card" href="gallery.html">
+      <h3>Gallery</h3>
+      <p>Photos &amp; videos from matchdays</p>
+    </a>
+    <a class="card" href="news.html">
+      <h3>News</h3>
+      <p>Latest league announcements</p>
+    </a>
+    <a class="card" href="referees.html">
+      <h3>Referees</h3>
+      <p>Registered match officials</p>
+    </a>
+    <a class="card" href="transfers.html">
+      <h3>Transfers</h3>
+      <p>Latest player moves between teams</p>
+    </a>
+  </div>
+
+  <div class="panel" style="margin-top:24px;">
+    <span class="eyebrow">League A — Standings</span>
+    <div id="home-standings-a"><p class="loading">Loading standings…</p></div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">League B — Standings</span>
+    <div id="home-standings-b"><p class="loading">Loading standings…</p></div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">Latest News</span>
+    <div id="home-news"></div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">Documents</span>
+    <div id="home-documents"><p class="loading">Loading documents…</p></div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">Latest Transfers</span>
+    <div id="home-transfers"><p class="loading">Loading…</p></div>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="standings.js"></script>
+<script>
+  mountLayout('index.html');
+
+  // --- PWA: install button ---
+  (function setupInstallButton() {
+    const installBtn = document.getElementById('cpl-install-btn');
+    let deferredPrompt = null;
+
+    // Already installed / running standalone -> nothing to do
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+      || window.navigator.standalone === true;
+    if (isStandalone) return;
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+      installBtn.hidden = false;
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      installBtn.hidden = true;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('CPL install prompt outcome:', outcome);
+      deferredPrompt = null;
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installBtn.hidden = true;
+      deferredPrompt = null;
+    });
+
+    // iOS Safari has no beforeinstallprompt — show a manual hint instead
+    const isIOS = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+    if (isIOS && !isStandalone) {
+      installBtn.hidden = false;
+      installBtn.textContent = 'Install: tap Share → Add to Home Screen';
+      installBtn.addEventListener('click', (e) => e.preventDefault());
+    }
+  })();
+
+  (async function loadHomeStandings() {
+    for (const league of ['A', 'B']) {
+      const root = document.getElementById('home-standings-' + league.toLowerCase());
+      try {
+        const [standings, teams, regTeams] = await Promise.all([CPL.get('Standings_' + league), CPL.get('Teams_' + league), CPL.get('Team_Registrations')]);
+        renderStandingsPreview(root, standings, teams, { limit: 5, seeAllHref: 'league-' + league.toLowerCase() + '.html', regTeams });
+      } catch (err) {
+        root.innerHTML = `<p class="empty">Could not load standings. ${cplEscape(err.message)}</p>`;
+      }
+    }
+  })();
+
+  (async function loadHomeNews() {
+    const root = document.getElementById('home-news');
+    try {
+      const news = await CPL.get('News');
+      const latest = [...news].sort((a, b) => cplParseDate(b.Date) - cplParseDate(a.Date)).slice(0, 3);
+      root.innerHTML = latest.length
+        ? latest.map(n => `
+            <div style="margin-bottom:16px;">
+              ${n['Image URL'] ? `<img src="${cplEscape(n['Image URL'])}" alt="" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;margin-bottom:10px;">` : ''}
+              <span class="eyebrow" style="margin-bottom:2px;">${cplEscape(n.Date)}</span>
+              <h3 style="margin-bottom:4px;">${cplEscape(n.Title)}</h3>
+              <p>${cplEscape((n.Body || '').slice(0, 180))}${(n.Body || '').length > 180 ? '…' : ''}</p>
+            </div>`).join('') + '<a class="btn secondary" href="news.html">All news</a>'
+        : '<p class="empty">No news yet.</p>';
+    } catch (err) {
+      root.innerHTML = `<p class="empty">Could not load news. ${cplEscape(err.message)}</p>`;
+    }
+  })();
+
+  (async function loadHomeDocuments() {
+    const root = document.getElementById('home-documents');
+    try {
+      const docs = await CPL.get('Documents');
+      root.innerHTML = docs.length
+        ? '<div class="card-grid">' + docs.map(d => `
+            <a class="card" href="${cplEscape(d['File URL'])}" target="_blank" rel="noopener">
+              <h3>${cplEscape(d.Title)}</h3>
+              <p>${cplEscape(d.Description || d.Category || 'View document')}</p>
+            </a>`).join('') + '</div>'
+        : '<p class="empty">No documents shared yet.</p>';
+    } catch (err) {
+      root.innerHTML = `<p class="empty">Could not load documents. ${cplEscape(err.message)}</p>`;
+    }
+  })();
+
+  (async function loadHomeTransfers() {
+    const root = document.getElementById('home-transfers');
+    try {
+      const rows = await CPL.get('Transfers');
+      const latest = [...rows].sort((a, b) => cplParseDate(b.Date) - cplParseDate(a.Date)).slice(0, 3);
+      root.innerHTML = latest.length
+        ? latest.map(r => `
+            <div style="margin-bottom:14px;">
+              <span class="eyebrow" style="margin-bottom:2px;">${cplEscape(r.Date)}</span>
+              <p style="margin:0;"><strong>${cplEscape(r.Player)}</strong>: ${cplEscape(r['From Team'] || 'Free Agent')} &rarr; ${cplEscape(r['To Team'] || 'Unattached')}</p>
+            </div>`).join('') + '<a class="btn secondary" href="transfers.html">All transfers</a>'
+        : '<p class="empty">No transfer announcements yet.</p>';
+    } catch (err) {
+      root.innerHTML = `<p class="empty">Could not load transfers. ${cplEscape(err.message)}</p>`;
+    }
+  })();
+</script>
+</body>
+</html>

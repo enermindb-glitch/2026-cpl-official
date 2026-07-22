@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register a Team — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">Registration</span>
+  <h1>Register a Team</h1>
+  <p>Registration fee: <strong>KES 6000</strong>. Pay via M-Pesa first, then submit this form with your Payment Ref. You can upload your team logo now to save the admin a step, or add one later — either way, an admin will confirm payment and add your squad to League A or League B listings.</p>
+
+  <div class="panel">
+    <span class="eyebrow">M-Pesa Payment Details</span>
+    <p>Send <strong>KES 6000</strong> via M-Pesa <strong>Send Money</strong> to <strong style="color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:1.05rem;" id="tf-payment-phone">0740953324</strong>, then enter the M-Pesa confirmation code below as your Payment Ref.</p>
+  </div>
+
+  <div class="panel">
+    <form id="team-register-form">
+      <label for="tf-team">Team Name</label>
+      <input id="tf-team" name="Team" type="text" required>
+
+      <label for="tf-league">League</label>
+      <select id="tf-league" name="League" required>
+        <option value="" disabled selected>Select league…</option>
+        <option value="A">League A</option>
+        <option value="B">League B</option>
+      </select>
+
+      <label for="tf-contact-name">Contact Name</label>
+      <input id="tf-contact-name" name="Contact Name" type="text" required autocomplete="name">
+
+      <label for="tf-contact-email">Contact Email</label>
+      <input id="tf-contact-email" name="Contact Email" type="email" required autocomplete="email">
+
+      <label for="tf-contact-phone">Contact Phone</label>
+      <input id="tf-contact-phone" name="Contact Phone" type="tel" required autocomplete="tel">
+
+      <label for="tf-password">Choose a Password</label>
+      <input id="tf-password" name="Password" type="password" required minlength="8" autocomplete="new-password">
+      <p class="hint">At least 8 characters. Sign in with your Contact Email + this password on <a href="login.html">Login</a> to see your team's profile once approved.</p>
+
+      <label for="tf-logo">Team Logo <span class="opt">(optional — PNG or JPG)</span></label>
+      <input id="tf-logo" name="Logo" type="file" accept="image/*">
+      <div class="logo-preview-wrap"><img id="tf-logo-preview" class="logo-preview"></div>
+
+      <label for="tf-payment">M-Pesa Payment Ref</label>
+      <input id="tf-payment" name="Payment Ref" type="text" required placeholder="e.g. QGH7X2K9LP">
+
+      <button id="team-register-submit" type="submit" class="button">Register Team</button>
+    </form>
+    <div id="team-register-message" class="message" hidden></div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">Note</span>
+    <p>Approval covers your team's registration record only. Add your squad by having each player <a href="register-player.html">register individually</a> once your team is live.</p>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="registrations.js"></script>
+<script>
+  mountLayout('register-team.html');
+  initTeamRegisterForm();
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main class="narrow">
+  <span class="eyebrow">Account Login</span>
+  <h1>Sign In</h1>
+  <p>One login for every account type — players, team contacts, referees, and CPL officials all sign in here with the email and password set at registration. You'll land on <a href="my-profile.html">My Profile</a>, where you can view your card/QR, edit your bio and photo (players), and see your status even while still pending approval.</p>
+
+  <div class="panel" id="login-panel"></div>
+
+  <p style="margin-top:20px;">Not sure which profile is yours? Browse the <a href="players.html">players directory</a> and open your profile — the edit form appears automatically once you're signed in.</p>
+
+  <p style="margin-top:32px;font-size:0.78rem;color:var(--muted);">League admin? <a href="admin.html">Sign in to the admin dashboard</a>.</p>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="auth.js"></script>
+<script>
+  mountLayout('login.html');
+  initLoginForm('login-panel');
+</script>
+</body>
+</html>

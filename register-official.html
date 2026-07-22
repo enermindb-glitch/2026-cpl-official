@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register as a CPL Official — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">Registration</span>
+  <h1>Register as a CPL Official</h1>
+  <p>No registration fee. For league organizers, chairpersons, secretaries, treasurers, and other non-matchday officials — for match referees, use <a href="register-referee.html">Register as a Referee</a> instead. Submit your details below; an admin will review and activate your listing before it appears on the <a href="officials.html">Officials</a> page.</p>
+
+  <div class="panel">
+    <form id="official-register-form">
+      <label for="of-name">Full Name</label>
+      <input id="of-name" name="Name" type="text" required autocomplete="name">
+
+      <label for="of-role">Role</label>
+      <select id="of-role" name="Role" required>
+        <option value="" disabled selected>Select role…</option>
+        <option value="Chairperson">Chairperson</option>
+        <option value="Secretary">Secretary</option>
+        <option value="Treasurer">Treasurer</option>
+        <option value="League Organizer">League Organizer</option>
+        <option value="Media &amp; Communications">Media &amp; Communications</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="of-contact">Contact (phone or email)</label>
+      <input id="of-contact" name="Contact" type="text" required>
+
+      <label for="of-password">Choose a Password</label>
+      <input id="of-password" name="Password" type="password" required minlength="8" autocomplete="new-password">
+      <p class="hint">At least 8 characters. Sign in on <a href="login.html">Login</a> once activated to see your profile and QR card.</p>
+
+      <label for="of-photo">Photo <span class="opt">(optional — you can also add this later from your profile)</span></label>
+      <input id="of-photo" name="Photo" type="file" accept="image/*">
+      <div class="avatar-preview-wrap"><img id="of-photo-preview" class="avatar-preview"></div>
+
+      <button id="official-register-submit" type="submit" class="button">Register</button>
+    </form>
+    <div id="official-register-message" class="message" hidden></div>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="registrations.js"></script>
+<script>
+  mountLayout('register-official.html');
+  initOfficialRegisterForm();
+</script>
+</body>
+</html>

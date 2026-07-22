@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Players — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">Directory</span>
+  <h1>Players</h1>
+
+  <div class="panel">
+    <label>Search</label>
+    <input type="text" id="players-search" placeholder="Search by name, team, or CPL number…">
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
+      <div style="flex:1;min-width:140px;">
+        <label>League</label>
+        <select id="players-league-filter">
+          <option value="">All</option>
+          <option value="A">League A</option>
+          <option value="B">League B</option>
+        </select>
+      </div>
+      <div style="flex:1;min-width:140px;">
+        <label>Team</label>
+        <select id="players-team-filter"><option value="">All</option></select>
+      </div>
+      <div style="flex:1;min-width:140px;">
+        <label>Position</label>
+        <select id="players-position-filter"><option value="">All</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid" id="players-grid"></div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="players-directory.js"></script>
+<script>
+  mountLayout('players.html');
+  initPlayersDirectory();
+</script>
+</body>
+</html>

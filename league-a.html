@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>League A — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">Season 2026</span>
+  <h1>League A</h1>
+
+  <div class="panel">
+    <span class="eyebrow">Standings</span>
+    <div id="standings-table"><p class="loading">Loading standings…</p></div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">Top Scorers</span>
+    <div id="top-scorers"><p class="loading">Loading…</p></div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">Top Clean Sheets</span>
+    <div id="top-clean-sheets"><p class="loading">Loading…</p></div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">Fixtures &amp; Results</span>
+    <div id="fixtures-list"><p class="loading">Loading fixtures…</p></div>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="standings.js"></script>
+<script src="fixtures.js"></script>
+<script>
+  mountLayout('league-a.html');
+
+  (async function loadLeague() {
+    try {
+      const [standings, playerStats, fixtures, results, teams, regTeams] = await Promise.all([
+        CPL.get('Standings_A'), CPL.get('PlayerStats_A'), CPL.get('Fixtures_A'), CPL.get('Results_A'), CPL.get('Teams_A'), CPL.get('Team_Registrations')
+      ]);
+      renderStandingsTable(document.getElementById('standings-table'), standings, { linkTeams: true, teams, regTeams });
+      renderTopList(document.getElementById('top-scorers'), playerStats, 'Goals', { label: 'Goals' });
+      renderTopList(document.getElementById('top-clean-sheets'), playerStats, 'Clean Sheets', { label: 'Clean Sheets' });
+      renderFixturesList(document.getElementById('fixtures-list'), fixtures, results, teams);
+    } catch (err) {
+      console.error(err);
+      document.getElementById('standings-table').innerHTML = `<p class="empty">Could not load League A data. ${cplEscape(err.message)}</p>`;
+    }
+  })();
+</script>
+</body>
+</html>

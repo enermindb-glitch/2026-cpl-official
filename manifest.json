@@ -1,0 +1,25 @@
+{
+  "name": "Chuka Premier League",
+  "short_name": "CPL",
+  "description": "Fixtures, standings, player profiles and league news for the Chuka Premier League.",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#0b4f2e",
+  "icons": [
+    {
+      "src": "https://media-mba2-1.cdn.whatsapp.net/v/t61.24694-24/612473433_893886059818907_3441368477424803080_n.jpg?ccb=11-4&oh=01_Q5Aa5AHsP3vSxN-lDDqTSkCZf89LrNoaegKxBS-UX5eErYk2bg&oe=6A66E35C&_nc_sid=5e03e0&_nc_cat=103",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "https://media-mba2-1.cdn.whatsapp.net/v/t61.24694-24/612473433_893886059818907_3441368477424803080_n.jpg?ccb=11-4&oh=01_Q5Aa5AHsP3vSxN-lDDqTSkCZf89LrNoaegKxBS-UX5eErYk2bg&oe=6A66E35C&_nc_sid=5e03e0&_nc_cat=103",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

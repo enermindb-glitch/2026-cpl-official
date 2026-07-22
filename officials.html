@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Officials — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">League Officials</span>
+  <h1>Officials</h1>
+  <p>League organizers and committee members. Looking for match officials instead? See <a href="referees.html">Referees</a>.</p>
+
+  <div class="panel">
+    <label>Search by name</label>
+    <input type="text" id="officials-search" placeholder="Search officials…">
+  </div>
+
+  <div class="card-grid" id="officials-grid"></div>
+
+  <p style="margin-top:20px;font-size:0.78rem;color:var(--muted);">Contact details for officials are kept private and are only visible to league admins. Have a question? Use <a href="enquiries.html">Enquiries</a>.</p>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="officials.js"></script>
+<script>
+  mountLayout('officials.html');
+  initOfficialsPage();
+</script>
+</body>
+</html>

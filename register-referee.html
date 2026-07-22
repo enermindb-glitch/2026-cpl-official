@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register as a Referee — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">Registration</span>
+  <h1>Register as a Referee</h1>
+  <p>No registration fee. Submit your details below — an admin will review and activate your listing before it appears on the <a href="referees.html">Referees</a> page.</p>
+
+  <div class="panel">
+    <form id="referee-register-form">
+      <label for="rf-name">Full Name</label>
+      <input id="rf-name" name="Name" type="text" required autocomplete="name">
+
+      <label for="rf-contact">Contact (phone or email)</label>
+      <input id="rf-contact" name="Contact" type="text" required>
+
+      <label for="rf-password">Choose a Password</label>
+      <input id="rf-password" name="Password" type="password" required minlength="8" autocomplete="new-password">
+      <p class="hint">At least 8 characters. Sign in on <a href="login.html">Login</a> once activated to see your profile and QR card.</p>
+
+      <label for="rf-photo">Photo <span class="opt">(optional — you can also add this later from your profile)</span></label>
+      <input id="rf-photo" name="Photo" type="file" accept="image/*">
+      <div class="avatar-preview-wrap"><img id="rf-photo-preview" class="avatar-preview"></div>
+
+      <button id="referee-register-submit" type="submit" class="button">Register</button>
+    </form>
+    <div id="referee-register-message" class="message" hidden></div>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="registrations.js"></script>
+<script>
+  mountLayout('register-referee.html');
+  initRefereeRegisterForm();
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referees — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">Match Officials</span>
+  <h1>Referees</h1>
+
+  <div class="panel">
+    <label>Search by name</label>
+    <input type="text" id="referees-search" placeholder="Search referees…">
+  </div>
+
+  <div class="card-grid" id="referees-grid"></div>
+
+  <p style="margin-top:20px;font-size:0.78rem;color:var(--muted);">Contact details for referees are kept private and are only visible to league admins. Want to book a referee? Use <a href="enquiries.html">Enquiries</a>.</p>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="referees.js"></script>
+<script>
+  mountLayout('referees.html');
+  initRefereesPage();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enquiries — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main class="narrow">
+  <span class="eyebrow">Get In Touch</span>
+  <h1>Enquiries</h1>
+  <p>Questions about registration, fixtures, transfers, or anything else — send it through and the admin team will follow up.</p>
+
+  <div class="panel">
+    <form id="enquiries-form">
+      <label>Name</label>
+      <input type="text" name="name" required>
+
+      <label>Role</label>
+      <select name="role" required>
+        <option value="">Select…</option>
+        <option>Player</option>
+        <option>Coach</option>
+        <option>Team Rep</option>
+        <option>Fan</option>
+        <option>Sponsor</option>
+        <option>Other</option>
+      </select>
+
+      <label>Team <span class="opt">(if applicable)</span></label>
+      <input type="text" name="team">
+
+      <label>Subject</label>
+      <input type="text" name="subject" required>
+
+      <label>Message</label>
+      <textarea name="message" required></textarea>
+
+      <button type="submit">Send Enquiry</button>
+      <div class="msg" id="enquiries-msg"></div>
+    </form>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="enquiries.js"></script>
+<script>
+  mountLayout('enquiries.html');
+  initEnquiriesForm();
+</script>
+</body>
+</html>

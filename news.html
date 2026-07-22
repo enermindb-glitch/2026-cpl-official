@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">Announcements</span>
+  <h1>News</h1>
+  <div id="news-list"><p class="loading">Loading news…</p></div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script>
+  mountLayout('news.html');
+
+  (async function loadNews() {
+    const root = document.getElementById('news-list');
+    try {
+      const news = await CPL.get('News');
+      const sorted = [...news].sort((a, b) => cplParseDate(b.Date) - cplParseDate(a.Date));
+      root.innerHTML = sorted.length
+        ? sorted.map(n => `
+            <div class="panel">
+              ${n['Image URL'] ? `<img src="${cplEscape(n['Image URL'])}" alt="" style="width:100%;max-height:280px;object-fit:cover;margin-bottom:16px;">` : ''}
+              <span class="eyebrow">${cplEscape(n.Date)}${n['League Tag'] ? ' &middot; ' + cplEscape(n['League Tag']) : ''}</span>
+              <h2>${cplEscape(n.Title)}</h2>
+              <p>${cplEscape(n.Body)}</p>
+            </div>`).join('')
+        : '<p class="empty">No news yet.</p>';
+    } catch (err) {
+      root.innerHTML = `<p class="empty">Could not load news. ${cplEscape(err.message)}</p>`;
+    }
+  })();
+</script>
+</body>
+</html>

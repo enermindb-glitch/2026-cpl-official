@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">Matchday Media</span>
+  <h1>Gallery</h1>
+
+  <div class="panel">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:140px;">
+        <label>League</label>
+        <select id="gallery-league-filter">
+          <option value="">All</option>
+          <option value="A">League A</option>
+          <option value="B">League B</option>
+        </select>
+      </div>
+      <div style="flex:1;min-width:140px;">
+        <label>Team</label>
+        <select id="gallery-team-filter"><option value="">All</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div id="gallery-groups"><p class="loading">Loading gallery…</p></div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="gallery.js"></script>
+<script>
+  mountLayout('gallery.html');
+  initGalleryPage();
+</script>
+</body>
+</html>

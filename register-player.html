@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register a Player — Chuka Premier League</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <span class="eyebrow">Registration</span>
+  <h1>Register a Player</h1>
+  <p>Registration fee: <strong>KES 100</strong>. Pay via M-Pesa first, then submit this form with your Payment Ref and a password. You can sign in with your email and password right away to edit your bio and photo — an admin will separately confirm payment and issue your CPL number.</p>
+
+  <div class="panel">
+    <span class="eyebrow">M-Pesa Payment Details</span>
+    <p>Send <strong>KES 100</strong> via M-Pesa <strong>Send Money</strong> to <strong style="color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:1.05rem;" id="pf-payment-phone">0740953324</strong>, then enter the M-Pesa confirmation code below as your Payment Ref.</p>
+  </div>
+
+  <div class="panel">
+    <form id="player-register-form">
+      <label for="pf-player">Full Name</label>
+      <input id="pf-player" name="Player" type="text" required autocomplete="name">
+
+      <label for="pf-league">League</label>
+      <select id="pf-league" name="League" required>
+        <option value="" disabled selected>Select league…</option>
+        <option value="A">League A</option>
+        <option value="B">League B</option>
+      </select>
+
+      <label for="pf-team">Team</label>
+      <select id="pf-team" name="Team" required disabled>
+        <option value="" disabled selected>Select a league first…</option>
+      </select>
+
+      <label for="pf-email">Email</label>
+      <input id="pf-email" name="Email" type="email" required autocomplete="email">
+      <p class="hint">Use the same email you'll sign in with — it's how your profile gets matched once approved.</p>
+
+      <label for="pf-position">Position</label>
+      <select id="pf-position" name="Position" required>
+        <option value="" disabled selected>Select position…</option>
+        <option value="Goalkeeper">Goalkeeper</option>
+        <option value="Defender">Defender</option>
+        <option value="Midfielder">Midfielder</option>
+        <option value="Forward">Forward</option>
+      </select>
+
+      <label for="pf-password">Choose a Password</label>
+      <input id="pf-password" name="Password" type="password" required minlength="8" autocomplete="new-password">
+      <p class="hint">At least 8 characters. You'll use this with your email to sign in later.</p>
+
+      <label for="pf-photo">Photo <span class="opt">(optional — you can also add this later from your profile)</span></label>
+      <input id="pf-photo" name="Photo" type="file" accept="image/*">
+      <div class="avatar-preview-wrap"><img id="pf-photo-preview" class="avatar-preview"></div>
+
+      <label for="pf-payment">M-Pesa Payment Ref</label>
+      <input id="pf-payment" name="Payment Ref" type="text" required placeholder="e.g. QGH7X2K9LP">
+
+      <button id="player-register-submit" type="submit" class="button">Register</button>
+    </form>
+    <div id="player-register-message" class="message" hidden></div>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="registrations.js"></script>
+<script>
+  mountLayout('register-player.html');
+  initPlayerRegisterForm();
+</script>
+</body>
+</html>
