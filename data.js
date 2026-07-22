@@ -6,10 +6,10 @@
 const CPL_CONFIG = {
   // Replace with your Google Sheet's ID — the long string in its URL
   // between /d/ and /edit, e.g. https://docs.google.com/spreadsheets/d/THIS_PART/edit
-  SHEET_ID: '1jHJZfhoRXJWUhdupUdZKQ_yzfFRsalWQujdwIdUxC5Y',
+  SHEET_ID: '1iv0ipjmPy6ffbxQdHwL_5iW0nvMlTeHJ4WhzYVV89lY',
 
   // Apps Script web app /exec URL (from Deploy > New deployment > Web app)
-  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyO6FS9nu7degRAaab6kpk3ln2RsB2CxqCtAq5wLWAtFQthTGC5m6jvFtroS0xSy3dknw/exec',
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyuq5u6y8D6XgXIECQCJYpztt25bAHBakUhUAfDCjmvksUfftQ4W1V3K1cJEd50LO3h/exec',
 
   // Shown in the header and used for CPL number prefixes
   SEASON: '2026',
